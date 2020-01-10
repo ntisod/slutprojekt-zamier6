@@ -25,6 +25,18 @@
 /processorParam:TextureFormat=Color
 /build:5d25f3846d3b77cc3983f41c35f0508e.png;character.png
 
+#begin 94639424097740a.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:94639424097740a.png;platform2.png
+
 #begin background.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -60,6 +72,49 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:coin.png
+
+#begin File.spritefont
+/importer:FontDescriptionImporter
+/processor:FontDescriptionProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:File.spritefont;myfont
+
+#begin kisspng-club-penguin-window-door-sprite-building-home-5ad0f81b941660.3332336415236444436066 (1).jpg
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:kisspng-club-penguin-window-door-sprite-building-home-5ad0f81b941660.3332336415236444436066 (1).jpg;Tower
+
+#begin ladda ned (4).png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:ladda ned (4).png;llama.png
+
+#begin ladda ned (5).png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:ladda ned (5).png;llama2
 
 #begin menu.png
 /importer:TextureImporter

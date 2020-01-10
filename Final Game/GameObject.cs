@@ -16,8 +16,8 @@ namespace Final_Game
         public GameObject(Texture2D gfx, Vector2 position)
         {
             this.gfx = gfx;
-            this.position.X = X;
-            this.position.Y = Y;
+            this.position.X = position.X;
+            this.position.Y = position.Y;
         }
 
         public float X { get { return position.X; } }
@@ -52,12 +52,19 @@ namespace Final_Game
         private bool isAlive = true;
         protected bool onGround = false;
         protected float gravity = 9.81f;
+        private Texture2D texture;
+    
+        public PhysicalObject(Texture2D texture, Vector2 position)
+        :base(texture , position )
+        {
+            this.texture = texture;
+            this.position = position;
+        }
 
         //Protected : Bara själva klassen som har skapat den och andra klasser som ärver den kan se variabeln
-        protected PhysicalObject(Texture2D gfx, Vector2 position)
-            : base(gfx, position)
-        {
-        }
+
+
+
 
         public bool IsAlive
         {
