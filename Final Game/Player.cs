@@ -9,14 +9,13 @@ using System.Threading.Tasks;
 
 namespace Final_Game
 {
-    class Player : Sprite
+    class Player : PhysicalObject
     {
         int points = 0;
-
         public List<Bullet> bullets;
         Texture2D bulletTexture;
         double timeSinceLastBullet;
-       
+        bool goingDown = false;
 
         public Player(Texture2D texture, Vector2 position, Texture2D bulletTexture)
             : base(texture, position)
@@ -31,6 +30,7 @@ namespace Final_Game
 
         public void Update(GameTime gameTime, GameWindow window)
         {
+            oldPos = position;
 
             //Tangentbordsstyrning
             KeyboardState keyboardState = Keyboard.GetState();
@@ -62,6 +62,7 @@ namespace Final_Game
                 }
             }
 
+
             //Förflyttning i x-led
             if (position.X <= window.ClientBounds.Width - gfx.Width && position.X >= 0)
             {
@@ -78,9 +79,11 @@ namespace Final_Game
             //Förflyttning i y-led
             if (position.Y <= window.ClientBounds.Height - gfx.Height && position.Y >= 0)
             {
-                if (keyboardState.IsKeyDown(Keys.S))
+                if (keyboardState.IsKeyDown(Keys.Down))
                 {
-                    position.Y += speed.Y + 5;
+                    speed.Y = 1;
+                    onGround = false;
+                    goingDown = true;
                 }
 
 
@@ -99,20 +102,20 @@ namespace Final_Game
             {
                 speed.Y = -15;
                 this.position.Y += this.speed.Y;
-
+                onGround = false;
             }
 
             //Gravitation
-            if (this.position.Y < window.ClientBounds.Height - gfx.Height)
+            if (!onGround)
             {
-                onGround = false;
                 this.speed.Y += 1;
 
                 this.position.Y += this.speed.Y;
+                if (this.speed.Y > 14)
+                    goingDown = false;
             }
             else
             {
-                onGround = true;
                 speed.Y = 0;
             }
 
@@ -120,6 +123,12 @@ namespace Final_Game
 
             
         }
+        /*
+        public override bool CheckCollision(PhysicalObject other)
+        {
+            if()
+            return true;
+        }*/
 
         //ritar in skotten
         public override void Draw(SpriteBatch spriteBatch)
@@ -129,6 +138,16 @@ namespace Final_Game
                 b.Draw(spriteBatch);
         }
 
+        public void PlatformCheck(Platform pf)
+        {
+            if (speed.Y > 0 && !goingDown)
+            {
+                position.Y=pf.Y-gfx.Height;
+                //speed.Y = 0;
+                onGround = true;
+            }
+
+        }
     }
 
     class Bullet : PhysicalObject
@@ -147,7 +166,7 @@ namespace Final_Game
 
 
          
-            position.X += -5;
+            position.X += -9;
             if (position.X < 0 || position.X > 800)
                 IsAlive = false;
         }

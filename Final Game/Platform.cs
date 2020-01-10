@@ -24,9 +24,7 @@ namespace Final_Game
             
         }
 
-        
-
-
+       
         #region Collision
         protected bool IsTouchingLeft(Platform platform)
         {
@@ -36,21 +34,31 @@ namespace Final_Game
                 this.rectangle.Top < platform.rectangle.Bottom;
         }
 
-   
+        protected bool IsTouchingRight(Platform platform)
+        {
+            return this.rectangle.Left + this.speed.X < platform.rectangle.Right &&
+                this.rectangle.Right > platform.rectangle.Right &&
+                this.rectangle.Bottom > platform.rectangle.Top &&
+                this.rectangle.Top < platform.rectangle.Bottom;
+        }
+        protected bool IsTouchingTop(Platform platform)
+        {
+            return this.rectangle.Bottom + this.speed.Y > platform.rectangle.Top &&
+                this.rectangle.Top < platform.rectangle.Top &&
+                this.rectangle.Bottom > platform.rectangle.Top &&
+                this.rectangle.Top < platform.rectangle.Bottom;
+        }
+        protected bool IsTouchingBottom(Platform platform)
+        {
+            return this.rectangle.Top + this.speed.X < platform.rectangle.Bottom &&
+                this.rectangle.Bottom > platform.rectangle.Bottom &&
+                this.rectangle.Right > platform.rectangle.Left &&
+                this.rectangle.Left < platform.rectangle.Right;
+        }
+        #endregion
+        
 
         
     }
+ }
 
-    static class RectangleHelper
-    {
-        const int penetrationMargin = 5;
-        public static bool isOnTopOf(this Rectangle r1, Rectangle r2)
-        {
-            return (r1.Bottom >= r2.Top - penetrationMargin &&
-                r1.Bottom <= r2.Top + 1 &&
-                r1.Right >= r2.Left + 5 &&
-                r1.Left <= r2.Right - 5);
-
-        }
-    }
-}

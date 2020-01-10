@@ -11,7 +11,7 @@ namespace Final_Game
     abstract class Enemy : PhysicalObject
     {
         public Enemy(Texture2D texture, Vector2 position, float speedX, float speedY)
-            : base(texture, position)
+            : base(texture,position)
         {
         }
 

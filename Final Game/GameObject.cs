@@ -38,6 +38,8 @@ namespace Final_Game
     abstract class MovingObject : GameObject
     {
         protected Vector2 speed;
+        public Vector2 oldPos;
+
         public MovingObject(Texture2D gfx, Vector2 position)
             : base(gfx, position)
         {

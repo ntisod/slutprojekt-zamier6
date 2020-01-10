@@ -50,7 +50,7 @@ namespace Final_Game
             spriteBatch = new SpriteBatch(GraphicsDevice);
             printText = new Printext(Content.Load<SpriteFont>("myfont"));
 
-            player = new Player(Content.Load<Texture2D>("ship"), new Vector2(300,300), Content.Load<Texture2D>("bullet"));
+            player = new Player(Content.Load<Texture2D>("ship"), new Vector2(300,344), Content.Load<Texture2D>("bullet"));
             //bottom level
             platforms.Add(new Platform(Content.Load<Texture2D>("platform"), new Vector2(520, 400)));
             platforms.Add(new Platform(Content.Load<Texture2D>("platform"), new Vector2(350, 400)));
@@ -111,7 +111,7 @@ namespace Final_Game
 
                 if (rndY == 3)
                 {
-                    posY = 370;
+                    posY = 380;
                 }
 
                
@@ -160,6 +160,18 @@ namespace Final_Game
          
           
             player.Update(gameTime, Window);
+
+            //Kolla kollisioner med plattformar
+            foreach(Platform pf in platforms)
+            {
+              
+               if(player.CheckCollision(pf))
+                {
+                    player.PlatformCheck(pf);
+
+                }
+
+            }
 
             //  if(pla)
 
