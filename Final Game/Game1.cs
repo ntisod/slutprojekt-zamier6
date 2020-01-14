@@ -17,6 +17,7 @@ namespace Final_Game
         Printext printText;
         Player player;
         List<Enemy> enemies;
+        int health = 100;
         List<Platform> platforms = new List<Platform>();
         int enemiesCount = 0;
         int roundnumber = 1;
@@ -50,26 +51,28 @@ namespace Final_Game
             spriteBatch = new SpriteBatch(GraphicsDevice);
             printText = new Printext(Content.Load<SpriteFont>("myfont"));
 
-            player = new Player(Content.Load<Texture2D>("ship"), new Vector2(300,344), Content.Load<Texture2D>("bullet"));
-            //bottom level
+            //laddar inn spelaren, positionen av spelaren, och hur våra bullets ska se ut
+            player = new Player(Content.Load<Texture2D>("ship"), new Vector2(300,344), Content.Load<Texture2D>("bullet")); 
+
+            //bottom level(Botten)
             platforms.Add(new Platform(Content.Load<Texture2D>("platform"), new Vector2(520, 400)));
             platforms.Add(new Platform(Content.Load<Texture2D>("platform"), new Vector2(350, 400)));
             platforms.Add(new Platform(Content.Load<Texture2D>("platform"), new Vector2(220, 400)));
             platforms.Add(new Platform(Content.Load<Texture2D>("platform"), new Vector2(90, 400)));
             platforms.Add(new Platform(Content.Load<Texture2D>("platform"), new Vector2(-40, 400)));
-            //bottom mid level
+            //bottom mid level(Nära botten)
             platforms.Add(new Platform(Content.Load<Texture2D>("platform"), new Vector2(520, 290)));
             platforms.Add(new Platform(Content.Load<Texture2D>("platform"), new Vector2(350, 290)));
             platforms.Add(new Platform(Content.Load<Texture2D>("platform"), new Vector2(220, 290)));
             platforms.Add(new Platform(Content.Load<Texture2D>("platform"), new Vector2(90, 290)));
             platforms.Add(new Platform(Content.Load<Texture2D>("platform"), new Vector2(-40, 290)));
-            //upper mid level
+            //upper mid level(Nära toppen)
             platforms.Add(new Platform(Content.Load<Texture2D>("platform"), new Vector2(520, 180)));
             platforms.Add(new Platform(Content.Load<Texture2D>("platform"), new Vector2(350, 180)));
             platforms.Add(new Platform(Content.Load<Texture2D>("platform"), new Vector2(220, 180)));
             platforms.Add(new Platform(Content.Load<Texture2D>("platform"), new Vector2(90, 180)));
             platforms.Add(new Platform(Content.Load<Texture2D>("platform"), new Vector2(-40, 180)));
-            //upper level
+            //upper level(Topp)
             platforms.Add(new Platform(Content.Load<Texture2D>("platform"), new Vector2(520, 70)));
             platforms.Add(new Platform(Content.Load<Texture2D>("platform"), new Vector2(350, 70)));
             platforms.Add(new Platform(Content.Load<Texture2D>("platform"), new Vector2(220, 70)));
@@ -77,12 +80,12 @@ namespace Final_Game
             platforms.Add(new Platform(Content.Load<Texture2D>("platform"), new Vector2(-40, 70)));
             //TODO: use this.Content to load your game content here
 
-            //create enemies 
+            //create enemies metoden som vi använder för att ladda in flera enemies efter alla enemies är döda 
             CreateEnemies();
 
         }
 
-        private void CreateEnemies()
+        private void CreateEnemies() //metoden createenemies och koden som laddar in själva enemies
         {
             enemiesCount++;
             Random random = new Random();
@@ -90,9 +93,14 @@ namespace Final_Game
             for (int i = 0; i < enemiesCount - 1; i++)
             {
                 //int rndX = random.Next(0, Window.ClientBounds.Width - tmpSprite.Width);
-                int rndY = random.Next(0, 3);
-                int rndX = random.Next(-200, 100);
-                int posY = 0;
+
+                
+                int rndY = random.Next(0, 3); //bestämmer vilken platform enemies kommer att laddas in på
+
+                int rndX = random.Next(-200, 100); //bestämmer när de kommer fram eftersom de har samma speed
+
+                int posY = 0; //Y till själva createenemies koden
+                
 
                 if (rndY == 0)
                 {
@@ -117,21 +125,8 @@ namespace Final_Game
                
 
                 Mine temp = new Mine(tmpSprite, new Vector2(rndX , posY));
-                enemies.Add(temp);
+                enemies.Add(temp); // koden
             }
-
-
-            /*//Tripoder
-            tmpSprite = this.Content.Load<Texture2D>("tripod");
-            for (int i = 0; i < enemiesCount; i++)
-            {
-                int rndX = random.Next(0, Window.ClientBounds.Width - tmpSprite.Width);
-                //int rndY = random.Next(0, Window.ClientBounds.Height / 2);
-
-                Tripod temp = new Tripod(tmpSprite, new Vector2(rndX));
-                enemies.Add(temp);
-            }
-            */
         }
 
         /// <summary>
@@ -203,20 +198,24 @@ namespace Final_Game
                     enemies.Remove(e);
             }
 
+
             if (enemies.Count < 1)
             {
-                int round = 1;
-                round++;
+
+             
+               
+                CreateEnemies();
 
                 
-
-                for (int i = 1; i < 100; i++)
-                {
-                    roundnumber = round;
-                }
-                    
-                CreateEnemies();
+                
             }
+
+
+            if (15 - enemiesCount == 0)
+            {
+                this.Exit();
+            }
+           
 
             base.Update(gameTime);
            
@@ -241,9 +240,10 @@ namespace Final_Game
             foreach (Enemy e in enemies)
                 e.Draw(spriteBatch);
 
-            printText.Print("Tower Health:" + 100 , spriteBatch, 0, 0);
+            printText.Print("Rounds Left:" + (15 - enemiesCount + 1), spriteBatch, 0, 0);
             printText.Print("Enemies:" + enemies.Count, spriteBatch, 0, 20);
-            printText.Print("Round:" + roundnumber, spriteBatch, 0, 40);
+            printText.Print("Hold the Down button to sink down platforms for your bullets to hit", spriteBatch, 170, 10 );
+
 
 
             spriteBatch.End();

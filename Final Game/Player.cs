@@ -15,7 +15,7 @@ namespace Final_Game
         public List<Bullet> bullets;
         Texture2D bulletTexture;
         double timeSinceLastBullet;
-        bool goingDown = false;
+        bool goingDown = false; //Så att vi vet om player åker upp eller ner
 
         public Player(Texture2D texture, Vector2 position, Texture2D bulletTexture)
             : base(texture, position)
@@ -42,7 +42,7 @@ namespace Final_Game
                     timeSinceLastBullet + 200)
                 {
                     //Skapa skottet
-                    Bullet temp = new Bullet(bulletTexture, new Vector2(position.X + gfx.Width / 2, position.Y));
+                    Bullet temp = new Bullet((bulletTexture), new Vector2(position.X + gfx.Width / 2, position.Y));
                     bullets.Add(temp);
                     //Sätt timeSinceLastBullet till detta ögonblick
                     timeSinceLastBullet = gameTime.TotalGameTime.TotalMilliseconds;
@@ -84,8 +84,15 @@ namespace Final_Game
                     speed.Y = 1;
                     onGround = false;
                     goingDown = true;
+                    
+                   
                 }
 
+
+
+                if(position.Y == 70 || position.Y == 180 || position.Y == 290 || position.Y == 400)
+                {
+                }
 
             }
 
@@ -98,14 +105,14 @@ namespace Final_Game
             if (position.Y > window.ClientBounds.Height - gfx.Height)
                 position.Y = window.ClientBounds.Height - gfx.Height;
 
-            if (onGround && keyboardState.IsKeyDown(Keys.Up))
+            if (onGround && keyboardState.IsKeyDown(Keys.Up)) //Används för att player ska hoppa.
             {
                 speed.Y = -15;
                 this.position.Y += this.speed.Y;
                 onGround = false;
             }
 
-            //Gravitation
+            //Gravitation som behövs för att din kärektär ska gå upp och ner
             if (!onGround)
             {
                 this.speed.Y += 1;
@@ -119,18 +126,11 @@ namespace Final_Game
                 speed.Y = 0;
             }
 
-            //kollisionen
+            
 
             
         }
-        /*
-        public override bool CheckCollision(PhysicalObject other)
-        {
-            if()
-            return true;
-        }*/
-
-        //ritar in skotten
+       
         public override void Draw(SpriteBatch spriteBatch)
         {
             spriteBatch.Draw(gfx, position, Color.White);
@@ -143,7 +143,6 @@ namespace Final_Game
             if (speed.Y > 0 && !goingDown)
             {
                 position.Y=pf.Y-gfx.Height;
-                //speed.Y = 0;
                 onGround = true;
             }
 
